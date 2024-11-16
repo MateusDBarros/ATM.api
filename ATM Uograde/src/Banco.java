@@ -1,55 +1,69 @@
-import java.util.ArrayList;
+import javax.print.DocFlavor;
 import java.util.Scanner;
-import java.util.Random;
 
-public class Banco {
+public class Menu {
+
+    static void menu(Banco contas[], int index) {
+
+        contas = new Banco[100];
+        Scanner scanner = new Scanner(System.in);
+        int userInput;
+
+        do {
+            System.out.println("--- Olá, " +contas[index].name);
+            System.out.println("1. Sacar.");
+            System.out.println("2. Depositar.");
+            System.out.println("3. Transferir.");
+            System.out.println("4. Sair.");
+            userInput = scanner.nextInt();
+
+            switch (userInput) {
+                case 1:
+                    Banco.cashOut(contas, index);
+                    break;
+
+                case 2:
+                    Banco.deposit(contas, index);
+                    break;
+
+                case 3:
+                    Banco.transfer(contas, index);
+                    break;
+
+                case 4:
+                    System.out.println("Voltando ao menu anterior...");
+                    System.out.println();
+                    return;
+
+                default:
+                    System.out.println("Opção inválida!");
+                    break;
+            }
 
 
-    static String name;
-    static String accNum;
-    static String password;
-    static double cash = 0;
-
-    Banco (String name, String accNum, String password, double cash){
-        this.name = name;
-        this.accNum = accNum;
-        this.password = password;
-        this.cash = cash;
+        } while (userInput != 4);
     }
 
-    public static void showAll() {
-        System.out.printf("Titular: %s, Número: %s, Saldo: R$ %.2f%n", name, accNum, cash);
-    }
+    static int login(Banco contas[]) {
 
-    public static int Accounts = 0;
+        Scanner scanner = new Scanner(System.in);
 
-    static Scanner scanner = new Scanner(System.in);
-    static Random random = new Random();
-    ArrayList<Banco> contas = new ArrayList<Banco>();
+        String acc;
+        String accPass;
 
-    static void create(Banco contas[]) {
+        System.out.print("Digite o numero da conta: ");
+        acc = scanner.nextLine();
 
-        System.out.printf("Digite o nome da contas: ");
-        String name = scanner.nextLine();
-        System.out.printf("Digite a senha da sua conta: ");
-        String password = scanner.nextLine();
-        int AccInt = random.nextInt(0,10001);
-        String accNum = Integer.toString(AccInt);
-        System.out.println("Conta criada com sucesso!");
-        contas[Accounts] = new Banco(name, accNum, password, 0);
-        showAll();
-        Accounts++;
-    }
-
-    static void cashOut(Banco contas[], int index) {
-
-    }
-
-    static void deposit(Banco contas[], int index) {
-
-    }
-
-    static void transfer(Banco dados[], int index) {
-
+        for (int i = 0; i < contas.length; i++){
+            if (acc.equals(contas[i].accNum)) {
+                System.out.printf("Olá, " +contas[i].name+ ", digite a senha da conta: ");
+                accPass = scanner.nextLine();
+                if (accPass.equals(contas[i].password)) {
+                    return i;
+                }
+            }
+        }
+        System.out.println("Conta não encontrada!");
+        return -1;
     }
 }
