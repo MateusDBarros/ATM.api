@@ -14,7 +14,7 @@ public class Main {
             System.out.println("2. Entrar...");
             System.out.println("3. Sair.");
             userInput = scanner.nextInt();
-            scanner.next();
+
 
             switch (userInput) {
                 case 1:
