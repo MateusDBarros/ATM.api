@@ -1,10 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-
-        Banco contas[] = new Banco[100];
+        ArrayList<Banco> contas = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-
         int userInput;
         int index;
 
@@ -14,7 +13,7 @@ public class Main {
             System.out.println("2. Entrar...");
             System.out.println("3. Sair.");
             userInput = scanner.nextInt();
-
+            scanner.nextLine();
 
             switch (userInput) {
                 case 1:
@@ -22,7 +21,11 @@ public class Main {
                     break;
                 case 2:
                     index = Menu.login(contas);
-                    Menu.menu(contas, index);
+                    if (index != -1) {
+                        Menu.menu(contas, index);
+                    }
+                    else
+                        System.out.println("Conta não encontrada!");
                     break;
 
                 case 3:
